@@ -1,45 +1,58 @@
 # ⚙️ ThreadFlow – Multi-Threaded Job Processing System
 
-A Python Flask-based web application demonstrating Operating System concepts through multithreaded job processing, concurrency, synchronization, and priority-based job management.
+<p align="center">
+  <strong>A Web-Based Multithreaded Job Processing Application</strong>
+</p>
+
+<p align="center">
+  Built using Python, Flask, SQLite, HTML, CSS and JavaScript
+</p>
+
+---
 
 ## 📌 Project Overview
 
-ThreadFlow is a web-based job processing system designed to manage and execute multiple jobs using background worker threads.
+**ThreadFlow – Multi-Threaded Job Processing System** is a web-based application developed to demonstrate the practical implementation of Operating System concepts such as multithreading, concurrency, thread synchronization, inter-thread communication and priority-based job management.
 
-The application allows users to submit jobs, monitor their execution, manage job priorities, view execution history, and analyze worker performance through an interactive dashboard.
+The application allows users to submit jobs, manage job queues, monitor background workers, track execution history and analyze worker performance through an interactive dashboard.
 
-It demonstrates how multiple threads can process jobs concurrently while maintaining synchronization and managing shared resources.
+The system uses multiple background worker threads to process jobs and a thread-safe queue to manage job execution.
 
 ## 👥 Team Members
 
-This project has been developed collaboratively by a team of three members.
+This project has been collaboratively developed by the following three team members.
 
-| S. No. | Team Member |
-|---|---|
-| 1 | Ayesha Rohilla |
-| 2 | [Member 2 Name] |
-| 3 | [Member 3 Name] |
+| S. No. | Team Member Name | University Roll Number |
+|:---:|---|:---:|
+| 1 | Sandeep Yadav | 2401730096 |
+| 2 | Sameer Jakhar | 2401730105 |
+| 3 | Dhruve Raghu | 2401730001 |
 
-**Institution:** K.R. Mangalam University  
+**University:** K.R. Mangalam University  
 **Programme:** B.Tech – Computer Science and Engineering (AI & ML)  
 **Subject:** Operating Systems  
-**Project Name:** Multi-Threaded Job Processing System
+**Academic Session:** 2026–2027  
+**Project Type:** Academic Team Project
 
-## ✨ Features
+---
 
-- **Interactive Dashboard:** Displays total jobs, completed jobs, pending jobs, and running jobs.
-- **Job Submission:** Submit new jobs with a name, description, and priority.
+## ✨ Key Features
+
+- **Interactive Dashboard:** Displays total jobs, completed jobs, pending jobs and running jobs.
+- **Job Submission:** Submit jobs with a name, description and priority.
 - **Job Queue Management:** View and manage submitted jobs.
-- **Search and Filtering:** Search jobs and filter them according to status and priority.
-- **Multithreaded Processing:** Uses three background worker threads to process jobs.
-- **Priority-Based Processing:** Supports High, Medium, and Low priority jobs.
+- **Search and Filtering:** Search jobs and filter them by status and priority.
+- **Multithreaded Processing:** Uses three background worker threads.
+- **Priority-Based Processing:** Supports High, Medium and Low priority jobs.
 - **Worker Monitoring:** Monitor worker status and assigned jobs.
 - **Job Details:** View detailed information about individual jobs.
 - **Job Cancellation:** Cancel pending jobs.
 - **Job Retry:** Provides functionality to retry failed jobs.
 - **Execution History:** View previously processed jobs.
 - **Worker Analytics:** Analyze worker performance and execution statistics.
-- **Database Integration:** Stores job information using SQLite.
+- **SQLite Database:** Stores job information persistently.
+
+---
 
 ## 🧠 Operating System Concepts Implemented
 
@@ -53,27 +66,31 @@ This project has been developed collaboratively by a team of three members.
 | Priority-Based Processing | Jobs are selected according to priority |
 | Shared Resources | Workers access common job-management data |
 
+---
+
 ## 🛠️ Technologies Used
 
-**Frontend**
+### Frontend
 - HTML5
 - CSS3
 - JavaScript
 - Chart.js
 
-**Backend**
+### Backend
 - Python 3.12
 - Flask
 - Python Threading
-- Queue Module
+- Python Queue Module
 
-**Database**
+### Database
 - SQLite
 
-**Development Tools**
+### Development Tools
 - Visual Studio Code
 - Git
 - GitHub
+
+---
 
 ## 📂 Project Structure
 
@@ -83,6 +100,7 @@ MULTITHREADED_JOB_SYSTEM/
 ├── app.py
 ├── worker_manager.py
 ├── requirements.txt
+├── rename_screenshots.py
 │
 ├── database/
 │   └── db.py
@@ -101,30 +119,103 @@ MULTITHREADED_JOB_SYSTEM/
 │   └── css/
 │       └── style.css
 │
+├── screenshots/
+│   ├── dashboard.png
+│   ├── submit-job.png
+│   ├── job-queue-filters.png
+│   ├── job-queue-records.png
+│   ├── job-details.png
+│   ├── worker-monitor.png
+│   ├── execution-history.png
+│   ├── worker-analytics-overview.png
+│   └── worker-analytics-details.png
+│
 └── README.md
 ```
 
+---
+
+## 🖥️ Project Screenshots
+
+### 1. Dashboard
+
+The dashboard provides an overview of job statistics and system activity.
+
+![ThreadFlow Dashboard](screenshots/dashboard.png)
+
+### 2. Submit New Job
+
+Allows users to submit jobs by entering job details and selecting priority.
+
+![Submit Job](screenshots/submit-job.png)
+
+### 3. Job Queue – Search and Filters
+
+Displays the job queue with search and filtering functionality.
+
+![Job Queue Filters](screenshots/job-queue-filters.png)
+
+### 4. Job Queue – Records
+
+Displays submitted jobs, their priorities, statuses and available actions.
+
+![Job Queue Records](screenshots/job-queue-records.png)
+
+### 5. Job Details
+
+Displays detailed information about a selected job, including its execution information.
+
+![Job Details](screenshots/job-details.png)
+
+### 6. Worker Monitoring
+
+Displays the status of background workers and their assigned jobs.
+
+![Worker Monitoring](screenshots/worker-monitor.png)
+
+### 7. Execution History
+
+Displays recorded job execution information.
+
+![Execution History](screenshots/execution-history.png)
+
+### 8. Worker Analytics – Overview
+
+Provides an overview of worker performance and job distribution.
+
+![Worker Analytics Overview](screenshots/worker-analytics-overview.png)
+
+### 9. Worker Analytics – Details
+
+Displays detailed worker performance and execution statistics.
+
+![Worker Analytics Details](screenshots/worker-analytics-details.png)
+
+---
+
 ## ⚙️ Installation and Setup
 
-### 1. Clone the Repository
+Follow these steps to run ThreadFlow on your local machine.
+
+### Step 1: Clone the Repository
 
 ```bash
 git clone https://github.com/Sandeepyadav-prog/Multi-Threaded-Job-Processing-System.git
 ```
 
-### 2. Navigate to the Project Directory
+### Step 2: Navigate to the Project Directory
 
 ```bash
 cd Multi-Threaded-Job-Processing-System
 ```
 
-### 3. Create a Virtual Environment
+### Step 3: Create a Virtual Environment
 
 ```bash
 python -m venv venv
 ```
 
-### 4. Activate the Virtual Environment
+### Step 4: Activate the Virtual Environment
 
 For Windows:
 
@@ -132,77 +223,69 @@ For Windows:
 venv\Scripts\activate
 ```
 
-### 5. Install Dependencies
+### Step 5: Install Required Dependencies
 
 ```bash
 pip install -r requirements.txt
 ```
 
-### 6. Run the Application
+### Step 6: Run the Application
 
 ```bash
 python app.py
 ```
 
-### 7. Open in Browser
+### Step 7: Open the Application
 
-Visit:
+Open your browser and visit:
 
 ```text
 http://127.0.0.1:5000
 ```
 
-## 🔄 How the System Works
+---
+
+## 🔄 Working Procedure
+
+The system follows a producer-consumer approach for job processing.
 
 1. The user submits a job through the web interface.
-2. The application stores job information in the SQLite database.
-3. Jobs are selected according to their priority.
-4. The job IDs are placed into a thread-safe queue.
+2. The application stores the job information in the SQLite database.
+3. Pending jobs are selected according to their priority.
+4. Job IDs are inserted into a thread-safe queue.
 5. Three background worker threads retrieve jobs from the queue.
-6. A worker marks its assigned job as Running.
-7. After the simulated processing period, the job status is updated to Completed.
-8. The dashboard and analytics pages display updated information.
+6. Each worker marks its assigned job as Running.
+7. The system simulates job execution using a five-second processing delay.
+8. After processing, the job status is updated to Completed.
+9. Worker statistics and job information are displayed through the dashboard and analytics pages.
 
-## 📊 Main Modules
+---
+
+## 📊 Main Application Modules
 
 | Module | Description |
 |---|---|
 | Dashboard | Displays overall job statistics |
 | Submit Job | Allows users to submit new jobs |
-| Job Queue | Displays jobs and provides search and filtering |
-| Worker Monitor | Displays worker status |
-| Job Details | Shows individual job information |
+| Job Queue | Displays jobs with search and filtering |
+| Job Details | Displays individual job information |
+| Worker Monitor | Monitors worker status |
 | Execution History | Displays recorded job history |
-| Worker Analytics | Shows worker performance statistics |
+| Worker Analytics | Displays worker performance statistics |
+
+---
 
 ## ⚠️ Project Limitations
 
 - Job execution is currently simulated using a five-second delay.
-- Worker threads and the processing queue operate within the running application.
+- The processing queue operates within the running application.
 - Worker statistics are maintained in memory and reset when the application restarts.
-- This project demonstrates application-level multithreading rather than a complete operating-system CPU scheduler.
+- The application demonstrates application-level multithreading rather than a complete operating-system CPU scheduler.
+
+---
 
 ## 🚀 Future Enhancements
 
 - Implement real-world job execution tasks.
-- Add user authentication and role-based access.
 - Introduce advanced scheduling algorithms such as FCFS and Round Robin.
-- Implement graceful worker shutdown and recovery.
-- Add real-time monitoring and notifications.
-- Improve database and queue persistence.
-- Deploy the application on a cloud platform.
-
-## 🎯 Project Objective
-
-The main objective of ThreadFlow is to provide a practical understanding of Operating System concepts by developing a multithreaded job processing application with a user-friendly web interface.
-
-## 👩‍💻 Project Information
-
-**Project Title:** Multi-Threaded Job Processing System  
-**Project Brand:** ThreadFlow  
-**Project Type:** Academic Team Project  
-**Domain:** Operating Systems
-
-## 📜 License
-
-This project is developed for academic and educational purposes.
+- Add user authentication and role
