@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% set active_page = "submit" %}
+{% block title %}Submit Job | ThreadFlow{% endblock %}
+{% block content %}
+<header class="page-header"><div><p class="eyebrow">JOB MANAGEMENT</p><h1>Submit New Job</h1><p class="page-subtitle">Create a task and add it to the processing queue.</p></div></header>
+<section class="form-layout">
+  <div class="panel form-panel">
+    <div class="panel-heading form-heading"><div><h2>Job Details</h2><p>Enter the information required to create a new job.</p></div></div>
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% for category, message in messages %}<div class="alert {{ category }}">{{ message }}</div>{% endfor %}
+    {% endwith %}
+    <form method="POST" action="{{ url_for('submit_job') }}">
+      <div class="form-group"><label for="job_name">Job Name <span>*</span></label><input id="job_name" name="job_name" type="text" maxlength="100" placeholder="e.g. Generate monthly report" required></div>
+      <div class="form-group"><label for="description">Job Description <span>*</span></label><textarea id="description" name="description" rows="5" placeholder="Describe the task that needs to be processed..." required></textarea></div>
+      <div class="form-group"><label for="priority">Job Priority</label><select id="priority" name="priority" required><option value="Low">Low Priority</option><option value="Medium" selected>Medium Priority</option><option value="High">High Priority</option></select><small>Priority is stored with the job and shown in the queue.</small></div>
+      <div class="form-actions"><button class="button button-primary" type="submit">＋ Submit Job</button><a class="button button-light" href="{{ url_for('job_queue') }}">View Job Queue</a></div>
+    </form>
+  </div>
+  <aside class="info-panel"><div class="info-symbol">ⓘ</div><h3>What happens next?</h3><p>Your job is saved in the SQLite database with a Pending status.</p><p>The worker processing engine will be connected in the next development stage.</p></aside>
+</section>
+{% endblock %}

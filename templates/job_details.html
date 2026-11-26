@@ -1,0 +1,101 @@
+
+{% extends "base.html" %}
+{% set active_page = "queue" %}
+
+{% block title %}Job Details | ThreadFlow{% endblock %}
+
+{% block content %}
+
+<header class="page-header">
+    <div>
+        <p class="eyebrow">JOB MANAGEMENT</p>
+        <h1>Job Details</h1>
+        <p class="page-subtitle">Complete information about this job and its execution.</p>
+    </div>
+
+    <a href="{{ url_for('job_queue') }}" class="button button-light">
+        ← Back to Job Queue
+    </a>
+</header>
+
+<section class="panel">
+
+    <div class="panel-heading">
+        <div>
+            <h2>{{ job.name }}</h2>
+            <p>Job ID: #{{ job.id }}</p>
+        </div>
+
+        <span class="status {{ job.status|lower }}">
+            {{ job.status }}
+        </span>
+    </div>
+
+    <div class="stats-grid">
+
+        <div class="stat-card">
+            <p class="muted">Priority</p>
+            <h2>{{ job.priority }}</h2>
+        </div>
+
+        <div class="stat-card">
+            <p class="muted">Assigned Worker</p>
+            <h2>{{ job.worker_id or "Not Assigned" }}</h2>
+        </div>
+
+        <div class="stat-card">
+            <p class="muted">Execution Time</p>
+            <h2>
+                {% if job.execution_time is not none %}
+                    {{ job.execution_time }} sec
+                {% else %}
+                    —
+                {% endif %}
+            </h2>
+        </div>
+
+    </div>
+
+    <div style="margin-top: 30px;">
+        <h3>Job Description</h3>
+        <p class="muted">{{ job.description }}</p>
+    </div>
+
+    <div style="margin-top: 30px;">
+        <h3>Execution Timeline</h3>
+
+        <table>
+            <tbody>
+                <tr>
+                    <th>Submitted At</th>
+                    <td>{{ job.created_at or "—" }}</td>
+                </tr>
+
+                <tr>
+                    <th>Started At</th>
+                    <td>{{ job.started_at or "Not Started" }}</td>
+                </tr>
+
+                <tr>
+                    <th>Completed At</th>
+                    <td>{{ job.completed_at or "Not Completed" }}</td>
+                </tr>
+
+                <tr>
+                    <th>Worker ID</th>
+                    <td>{{ job.worker_id or "Not Assigned" }}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    {% if job.error_message %}
+    <div style="margin-top: 25px;">
+        <h3>Error Information</h3>
+        <p>{{ job.error_message }}</p>
+    </div>
+    {% endif %}
+
+</section>
+
+{% endblock %}

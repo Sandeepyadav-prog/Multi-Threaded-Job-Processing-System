@@ -1,0 +1,66 @@
+
+{% extends "base.html" %}
+
+{% set active_page = "workers" %}
+
+{% block title %}Worker Monitoring | ThreadFlow{% endblock %}
+
+{% block content %}
+
+<div class="page-header">
+    <div>
+        <h1>Live Worker Monitoring</h1>
+        <p>Monitor your multithreaded job execution system.</p>
+    </div>
+</div>
+
+<div class="dashboard-container">
+
+    <div class="stats-grid">
+
+        {% for worker_name, worker in workers.items() %}
+
+        <div class="stat-card">
+            <h3>{{ worker_name }}</h3>
+
+            <h2>
+                {% if worker.status == "Working" %}
+                    <span style="color: #16a34a;">● Working</span>
+                {% else %}
+                    <span style="color: #64748b;">● Idle</span>
+                {% endif %}
+            </h2>
+
+            <p>
+                Current Job:
+                {% if worker.current_job %}
+                    #{{ worker.current_job }}
+                {% else %}
+                    None
+                {% endif %}
+            </p>
+
+            <p>
+                Completed Jobs: {{ worker.completed_jobs }}
+            </p>
+        </div>
+
+        {% endfor %}
+
+    </div>
+
+</div>
+
+<div style="margin-top: 25px;">
+    <p style="color: #64748b;">
+        Worker information refreshes automatically every 2 seconds.
+    </p>
+</div>
+
+<script>
+    setTimeout(function () {
+        window.location.reload();
+    }, 2000);
+</script>
+
+{% endblock %}

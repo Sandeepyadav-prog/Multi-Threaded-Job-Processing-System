@@ -1,0 +1,322 @@
+
+{% extends "base.html" %}
+{% set active_page = "queue" %}
+
+{% block title %}Job Queue | ThreadFlow{% endblock %}
+
+{% block content %}
+
+<header class="page-header">
+    <div>
+        <p class="eyebrow">JOB MANAGEMENT</p>
+        <h1>Job Queue</h1>
+        <p class="page-subtitle">
+            Manage and monitor your submitted jobs and worker execution.
+        </p>
+    </div>
+
+    <div style="display:flex; gap:10px; flex-wrap:wrap;">
+        <a class="button button-light" href="{{ url_for('job_queue') }}">
+            ↻ Refresh
+        </a>
+
+        <a class="button button-primary" href="{{ url_for('submit_job') }}">
+            + Add New Job
+        </a>
+    </div>
+</header>
+
+<!-- Flash Messages -->
+
+{% with messages = get_flashed_messages(with_categories=true) %}
+    {% for category, message in messages %}
+        <div class="alert {{ category }}">
+            {{ message }}
+        </div>
+    {% endfor %}
+{% endwith %}
+
+
+<!-- Worker Control Panel -->
+
+<section class="panel" style="margin-bottom:25px;">
+
+    <div class="panel-heading">
+        <div>
+            <h2>Worker Control Center</h2>
+            <p>Start background workers to process pending jobs concurrently.</p>
+        </div>
+
+        <span class="status running">3 Workers Configured</span>
+    </div>
+
+    <form action="{{ url_for('start_workers') }}" method="POST">
+        <button type="submit" class="button button-primary">
+            ▶ Start Workers
+        </button>
+    </form>
+
+    <p class="muted" style="margin-top:15px; font-size:12px;">
+        Three background threads are configured to execute jobs concurrently.
+        Each demo job takes approximately 5 seconds.
+    </p>
+
+</section>
+
+
+<!-- Job Search and Filters -->
+
+<div class="stat-card" style="margin-bottom:25px;">
+
+    <h3>Search & Filter Jobs</h3>
+
+    <form method="GET" action="{{ url_for('job_queue') }}"
+          style="display:flex; flex-wrap:wrap; gap:15px; align-items:end;">
+
+        <div style="flex:2; min-width:180px;">
+            <label>Search Job</label>
+            <input
+                type="text"
+                name="search"
+                placeholder="Search by Job ID, Name or Description..."
+                value="{{ search_query or '' }}"
+                style="width:100%; padding:12px; margin-top:8px;"
+            >
+        </div>
+
+        <div style="flex:1; min-width:150px;">
+            <label>Filter by Status</label>
+            <select name="status"
+                    style="width:100%; padding:12px; margin-top:8px;">
+
+                <option value="">All Statuses</option>
+
+                <option value="Pending"
+                    {% if status_filter == 'Pending' %}selected{% endif %}>
+                    Pending
+                </option>
+
+                <option value="Running"
+                    {% if status_filter == 'Running' %}selected{% endif %}>
+                    Running
+                </option>
+
+                <option value="Completed"
+                    {% if status_filter == 'Completed' %}selected{% endif %}>
+                    Completed
+                </option>
+
+                <option value="Failed"
+                    {% if status_filter == 'Failed' %}selected{% endif %}>
+                    Failed
+                </option>
+
+                <option value="Cancelled"
+                    {% if status_filter == 'Cancelled' %}selected{% endif %}>
+                    Cancelled
+                </option>
+
+            </select>
+        </div>
+
+        <div style="flex:1; min-width:150px;">
+            <label>Filter by Priority</label>
+            <select name="priority"
+                    style="width:100%; padding:12px; margin-top:8px;">
+
+                <option value="">All Priorities</option>
+
+                <option value="High"
+                    {% if priority_filter == 'High' %}selected{% endif %}>
+                    High
+                </option>
+
+                <option value="Medium"
+                    {% if priority_filter == 'Medium' %}selected{% endif %}>
+                    Medium
+                </option>
+
+                <option value="Low"
+                    {% if priority_filter == 'Low' %}selected{% endif %}>
+                    Low
+                </option>
+
+            </select>
+        </div>
+
+        <button type="submit" class="button button-primary">
+            Search / Filter
+        </button>
+
+        <a href="{{ url_for('job_queue') }}" class="button">
+            Clear Filters
+        </a>
+
+    </form>
+
+</div>
+
+
+<!-- Job Queue Table -->
+
+<section class="panel">
+
+    <div class="panel-heading">
+        <div>
+            <h2>All Jobs</h2>
+            <p>{{ jobs|length }} job(s) recorded in the current view</p>
+        </div>
+    </div>
+
+    {% if jobs %}
+
+    <div class="table-scroll">
+
+        <table>
+
+            <thead>
+                <tr>
+                    <th>Job ID</th>
+                    <th>Job Name</th>
+                    <th>Description</th>
+                    <th>Priority</th>
+                    <th>Status</th>
+                    <th>Worker ID</th>
+                    <th>Execution Time</th>
+                    <th>Submitted At</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+
+            <tbody>
+
+                {% for job in jobs %}
+
+                <tr>
+
+                    <td class="muted">#{{ job.id }}</td>
+
+                    <td class="job-name">
+                        <a href="{{ url_for('job_details', job_id=job.id) }}"
+                           style="color:inherit; text-decoration:none; font-weight:600;">
+                            {{ job.name }}
+                        </a>
+                    </td>
+
+                    <td class="description-cell">
+                        {{ job.description }}
+                    </td>
+
+                    <td>
+                        <span class="priority {{ job.priority|lower }}">
+                            {{ job.priority }}
+                        </span>
+                    </td>
+
+                    <td>
+                        <span class="status {{ job.status|lower }}">
+                            {{ job.status }}
+                        </span>
+                    </td>
+
+                    <td>{{ job.worker_id or "—" }}</td>
+
+                    <td>
+                        {% if job.execution_time is not none %}
+                            {{ job.execution_time }} sec
+                        {% else %}
+                            —
+                        {% endif %}
+                    </td>
+
+                    <td class="muted">{{ job.created_at }}</td>
+
+                    
+                  
+<td>
+
+    {% if job.status == 'Pending' %}
+
+        <form action="{{ url_for('cancel_job_route', job_id=job.id) }}"
+              method="POST"
+              onsubmit="return confirm('Are you sure you want to cancel this job?');">
+
+            <button type="submit" class="button button-light">
+                Cancel Job
+            </button>
+
+        </form>
+
+    {% elif job.status == 'Failed' %}
+
+        <form action="{{ url_for('retry_job_route', job_id=job.id) }}"
+              method="POST"
+              onsubmit="return confirm('Do you want to retry this job?');">
+
+            <button type="submit" class="button button-primary">
+                ↻ Retry Job
+            </button>
+
+        </form>
+
+    {% else %}
+
+        <span class="muted">Not Available</span>
+
+    {% endif %}
+
+</td>
+
+
+                </tr>
+
+                {% endfor %}
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+    {% else %}
+
+    <div class="empty-state">
+
+        <div class="empty-icon">▤</div>
+
+        {% if search_query or status_filter or priority_filter %}
+
+            <h3>No Matching Jobs Found</h3>
+
+            <p>
+                No jobs match your search or selected filters.
+                Try changing your search or clearing the filters.
+            </p>
+
+            <a class="button button-secondary"
+               href="{{ url_for('job_queue') }}">
+                Clear Filters
+            </a>
+
+        {% else %}
+
+            <h3>Your Queue Is Empty</h3>
+
+            <p>
+                Submit a job first. Your submitted jobs will appear here.
+            </p>
+
+            <a class="button button-secondary"
+               href="{{ url_for('submit_job') }}">
+                Submit a Job
+            </a>
+
+        {% endif %}
+
+    </div>
+
+    {% endif %}
+
+</section>
+
+{% endblock %}

@@ -1,0 +1,61 @@
+
+{% extends "base.html" %}
+
+{% set active_page = "history" %}
+
+{% block title %}Execution History | ThreadFlow{% endblock %}
+
+{% block content %}
+
+<div class="page-header">
+    <div>
+        <h1>Job Execution History</h1>
+        <p>View the execution records of all submitted jobs.</p>
+    </div>
+</div>
+
+<div class="table-container">
+    <table>
+        <thead>
+            <tr>
+                <th>Job ID</th>
+                <th>Job Name</th>
+                <th>Priority</th>
+                <th>Status</th>
+                <th>Worker</th>
+                <th>Started At</th>
+                <th>Completed At</th>
+                <th>Execution Time</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            {% for job in jobs %}
+            <tr>
+                <td>#{{ job.id }}</td>
+                <td>{{ job.name }}</td>
+                <td>{{ job.priority }}</td>
+                <td>{{ job.status }}</td>
+                <td>{{ job.worker_id or "Not Assigned" }}</td>
+                <td>{{ job.started_at or "-" }}</td>
+                <td>{{ job.completed_at or "-" }}</td>
+
+                <td>
+                    {% if job.execution_time is not none %}
+                        {{ job.execution_time }} sec
+                    {% else %}
+                        -
+                    {% endif %}
+                </td>
+            </tr>
+
+            {% else %}
+            <tr>
+                <td colspan="8">No execution records available yet.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+{% endblock %}

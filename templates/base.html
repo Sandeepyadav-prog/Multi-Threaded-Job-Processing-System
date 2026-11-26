@@ -1,0 +1,116 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>{% block title %}ThreadFlow{% endblock %}</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+
+<body>
+
+<div class="app-shell">
+
+    <!-- Sidebar -->
+    <aside class="sidebar">
+
+        <!-- Brand -->
+        <a class="brand" href="{{ url_for('home') }}">
+            <span class="brand-mark">TF</span>
+
+            <span>
+                <strong>ThreadFlow</strong>
+                <small>JOB PROCESSING SYSTEM</small>
+            </span>
+        </a>
+
+        <div class="nav-caption">WORKSPACE</div>
+
+        <!-- Navigation Menu -->
+        <nav class="sidebar-nav">
+
+            <!-- Dashboard -->
+            <a class="nav-link {% if active_page == 'dashboard' %}active{% endif %}"
+               href="{{ url_for('home') }}">
+                <span class="nav-icon">▦</span>
+                Dashboard
+            </a>
+
+            <!-- Submit Job -->
+            <a class="nav-link {% if active_page == 'submit' %}active{% endif %}"
+               href="{{ url_for('submit_job') }}">
+                <span class="nav-icon">＋</span>
+                Submit Job
+            </a>
+
+            <!-- Job Queue -->
+            <a class="nav-link {% if active_page == 'queue' %}active{% endif %}"
+               href="{{ url_for('job_queue') }}">
+                <span class="nav-icon">☷</span>
+                Job Queue
+            </a>
+
+            <!-- Worker Monitoring -->
+            <a class="nav-link {% if active_page == 'workers' %}active{% endif %}"
+               href="{{ url_for('worker_monitor') }}">
+                <span class="nav-icon">◉</span>
+                Worker Monitoring
+            </a>
+
+            <!-- Execution History -->
+            <a class="nav-link {% if active_page == 'history' %}active{% endif %}"
+               href="{{ url_for('execution_history') }}">
+                <span class="nav-icon">▤</span>
+                Execution History
+            </a>
+
+            <!-- Worker Performance Analytics -->
+<a class="nav-link {% if active_page == 'analytics' %}active{% endif %}"
+   href="{{ url_for('worker_analytics') }}">
+    <span class="nav-icon">▥</span>
+    Worker Analytics
+</a>
+
+        </nav>
+
+        <!-- Sidebar Footer -->
+        <div class="sidebar-bottom">
+
+            <div class="system-dot"></div>
+
+            <div>
+                <strong>System workspace</strong>
+                <small>Operating Systems Project</small>
+            </div>
+
+        </div>
+
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+
+        <div class="content-inner">
+
+            {% block content %}
+            {% endblock %}
+
+            <footer class="footer">
+                ThreadFlow
+                <span>·</span>
+                Multi-Threaded Job Processing System
+            </footer>
+
+        </div>
+
+    </main>
+
+</div>
+
+</body>
+</html>

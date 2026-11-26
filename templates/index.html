@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% set active_page = "dashboard" %}
+{% block title %}Dashboard | ThreadFlow{% endblock %}
+{% block content %}
+<header class="page-header">
+  <div><p class="eyebrow">OVERVIEW</p><h1>Dashboard</h1><p class="page-subtitle">Monitor and manage your job processing system.</p></div>
+  <a class="button button-primary" href="{{ url_for('submit_job') }}">＋ Submit New Job</a>
+</header>
+
+<section class="stats-grid">
+  <article class="stat-card"><div class="stat-top"><span class="stat-label">Total Jobs</span><span class="stat-icon teal">▦</span></div><div class="stat-value">{{ counts.total }}</div><p class="stat-note">All submitted jobs</p></article>
+  <article class="stat-card"><div class="stat-top"><span class="stat-label">Pending Jobs</span><span class="stat-icon amber">◷</span></div><div class="stat-value">{{ counts.pending }}</div><p class="stat-note">Waiting for processing</p></article>
+  <article class="stat-card"><div class="stat-top"><span class="stat-label">Running Jobs</span><span class="stat-icon blue">⇄</span></div><div class="stat-value">{{ counts.running }}</div><p class="stat-note">Currently processing</p></article>
+  <article class="stat-card"><div class="stat-top"><span class="stat-label">Completed Jobs</span><span class="stat-icon green">✓</span></div><div class="stat-value">{{ counts.completed }}</div><p class="stat-note">Successfully completed</p></article>
+</section>
+
+<section class="panel">
+  <div class="panel-heading"><div><h2>Recent Jobs</h2><p>Your latest submitted jobs</p></div><a class="text-link" href="{{ url_for('job_queue') }}">View all jobs →</a></div>
+  {% if jobs %}
+  <div class="table-scroll"><table><thead><tr><th>Job ID</th><th>Job Name</th><th>Priority</th><th>Status</th><th>Created At</th></tr></thead><tbody>
+  {% for job in jobs[:5] %}<tr><td class="muted">#{{ job.id }}</td><td class="job-name">{{ job.name }}</td><td><span class="priority {{ job.priority|lower }}">{{ job.priority }}</span></td><td><span class="status {{ job.status|lower }}">{{ job.status }}</span></td><td class="muted">{{ job.created_at }}</td></tr>{% endfor %}
+  </tbody></table></div>
+  {% else %}<div class="empty-state"><div class="empty-icon">▤</div><h3>No jobs submitted yet</h3><p>Submit your first job and it will appear here.</p><a class="button button-secondary" href="{{ url_for('submit_job') }}">Submit your first job</a></div>{% endif %}
+</section>
+{% endblock %}
