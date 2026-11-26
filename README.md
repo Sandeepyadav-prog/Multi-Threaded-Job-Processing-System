@@ -1,6 +1,6 @@
 # ⚙️ ThreadFlow – Multi-Threaded Job Processing System
 
-A Python Flask-based web application that demonstrates the practical implementation of Operating System concepts through multithreaded job processing, concurrency, synchronization, and priority-based job management.
+A Python Flask-based web application demonstrating Operating System concepts through multithreaded job processing, concurrency, synchronization, and priority-based job management.
 
 ## 📌 Project Overview
 
@@ -9,6 +9,21 @@ ThreadFlow is a web-based job processing system designed to manage and execute m
 The application allows users to submit jobs, monitor their execution, manage job priorities, view execution history, and analyze worker performance through an interactive dashboard.
 
 It demonstrates how multiple threads can process jobs concurrently while maintaining synchronization and managing shared resources.
+
+## 👥 Team Members
+
+This project has been developed collaboratively by a team of three members.
+
+| S. No. | Team Member |
+|---|---|
+| 1 | Ayesha Rohilla |
+| 2 | [Member 2 Name] |
+| 3 | [Member 3 Name] |
+
+**Institution:** K.R. Mangalam University  
+**Programme:** B.Tech – Computer Science and Engineering (AI & ML)  
+**Subject:** Operating Systems  
+**Project Name:** Multi-Threaded Job Processing System
 
 ## ✨ Features
 
@@ -157,7 +172,7 @@ http://127.0.0.1:5000
 | Job Queue | Displays jobs and provides search and filtering |
 | Worker Monitor | Displays worker status |
 | Job Details | Shows individual job information |
-| Execution History | Displays completed and other recorded jobs |
+| Execution History | Displays recorded job history |
 | Worker Analytics | Shows worker performance statistics |
 
 ## ⚠️ Project Limitations
@@ -181,13 +196,12 @@ http://127.0.0.1:5000
 
 The main objective of ThreadFlow is to provide a practical understanding of Operating System concepts by developing a multithreaded job processing application with a user-friendly web interface.
 
-## 👩‍💻 Developer
+## 👩‍💻 Project Information
 
-**Ayesha Rohilla**
-
-B.Tech – Computer Science and Engineering (AI & ML)
-
-K.R. Mangalam University
+**Project Title:** Multi-Threaded Job Processing System  
+**Project Brand:** ThreadFlow  
+**Project Type:** Academic Team Project  
+**Domain:** Operating Systems
 
 ## 📜 License
 
